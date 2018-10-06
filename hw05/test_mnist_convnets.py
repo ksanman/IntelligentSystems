@@ -103,8 +103,8 @@ def load(file_name):
     return obj
 
 # load the validation data; change these directories accordingly
-valid_x_path = '/home/Kody/Documents/School/CS5600/hw05/my_mnist_net/valid_x.pck'
-valid_y_path = '/home/Kody/Documents/School/CS5600/hw05/my_mnist_net/valid_y.pck'
+valid_x_path = 'my_mnist_net/valid_x.pck'
+valid_y_path = 'my_mnist_net/valid_y.pck'
 validX = load(valid_x_path)
 validY = load(valid_y_path)
 
