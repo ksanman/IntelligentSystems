@@ -1,0 +1,3 @@
+sklearn==0.0
+tensorflow==1.11.0
+tflearn==0.3.2
