@@ -1,7 +1,6 @@
 import mnist_digits_decision_tree as dt
 import mnist_digits_random_forest as rf
 import time
-
 from tensorflow import reset_default_graph
 reset_default_graph()
 
@@ -37,25 +36,23 @@ en = time.time()
 data.append({'net training time':en - start})
 print en - start
 
+
+
 import test_mnist_convnets as ts
-net1 = ts.load_mnist_convnet_1(ts.net_path_1)
-net2 = ts.load_mnist_convnet_2(ts.net_path_2)
-net3 = ts.load_mnist_convnet_3(ts.net_path_3)
-net4 = ts.load_mnist_convnet_4(ts.net_path_4)
-net5 = ts.load_mnist_convnet_5(ts.net_path_5)
-ac1 = ts.test_convnet_model(net1)
+ac1 = ts.test_convnet_model(ts.load_mnist_convnet_1(ts.net_path_1),ts.validX,ts.validY)
 reset_default_graph()
-ac2 = ts.test_convnet_model(net2)
+ac2 = ts.test_convnet_model(ts.load_mnist_convnet_2(ts.net_path_2),ts.validX,ts.validY)
 reset_default_graph()
-ac3 = ts.test_convnet_model(net3)
+ac3 = ts.test_convnet_model(ts.load_mnist_convnet_3(ts.net_path_3),ts.validX,ts.validY)
 reset_default_graph()
-ac4= ts.test_convnet_model(net4)
+ac4= ts.test_convnet_model(ts.load_mnist_convnet_4(ts.net_path_4),ts.validX,ts.validY)
 reset_default_graph()
-ac5 = ts.test_convnet_model(net5)
-reset_default_graph()
+ac5 = ts.test_convnet_model(ts.load_mnist_convnet_5(ts.net_path_5),ts.validX,ts.validY)
 
 data.append({'net1 acc: ' : ac1, 'net2 acc: ' : ac2, 'net3 acc: ':ac3, 'net4 acc:': ac4, 'net5 acc:':ac5})
 
-f = open("stats.txt", "w")
-f.write(data)
+import json
+f = open("stats.txt", "a+")
+f.write(json.dumps(data))
+f.close()
 print data

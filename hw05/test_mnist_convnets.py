@@ -37,7 +37,8 @@ def load_mnist_convnet_1(path):
     fc1 = tflearn.fully_connected(max_pool2, 100, activation='sigmoid')
     fc2 = tflearn.fully_connected(fc1, 10, activation='softmax')
     model = tflearn.DNN(fc2)
-    return model.load(net_path_1)
+    model.load(path,weights_only=True)
+    return model
 
 def load_mnist_convnet_2(path):
     ## your code here
@@ -50,7 +51,8 @@ def load_mnist_convnet_2(path):
     fc1 = tflearn.fully_connected(max_pool2, 100, activation='sigmoid')
     fc2 = tflearn.fully_connected(fc1, 10, activation='softmax')
     model =  tflearn.DNN(fc2)
-    return model.load(net_path_2)
+    model.load(path,weights_only=True)
+    return model
 
 def load_mnist_convnet_3(path):
     ## your code here
@@ -63,7 +65,8 @@ def load_mnist_convnet_3(path):
     fc1 = tflearn.fully_connected(max_pool2, 100, activation='relu')
     fc2 = tflearn.fully_connected(fc1, 10, activation='softmax')
     model =  tflearn.DNN(fc2)
-    return model.load(net_path_3)
+    model.load(path,weights_only=True)
+    return model
 
 def load_mnist_convnet_4(path):
     ## your code here
@@ -79,7 +82,8 @@ def load_mnist_convnet_4(path):
     fc1 = tflearn.fully_connected(max_pool3, 100, activation='sigmoid')
     fc2 = tflearn.fully_connected(fc1, 10, activation='softmax')
     model = tflearn.DNN(fc2)
-    return model.load(net_path_4)
+    model.load(path,weights_only=True)
+    return model
 
 def load_mnist_convnet_5(path):
     ## your code here
@@ -95,7 +99,8 @@ def load_mnist_convnet_5(path):
     fc1 = tflearn.fully_connected(max_pool3, 30, activation='sigmoid')
     fc2 = tflearn.fully_connected(fc1, 10, activation='softmax')
     model =  tflearn.DNN(fc2)
-    return model.load(net_path_5)
+    model.load(path,weights_only=True)
+    return model
 
 def load(file_name):
     with open(file_name, 'rb') as fp:

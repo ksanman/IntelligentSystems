@@ -1,0 +1,2 @@
+model_checkpoint_path: "/IntelligentSystems/hw05/my_mnist_net/hw05_my_net_05.tfl"
+all_model_checkpoint_paths: "/IntelligentSystems/hw05/my_mnist_net/hw05_my_net_05.tfl"
