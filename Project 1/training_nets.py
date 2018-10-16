@@ -8,7 +8,6 @@ from scipy.signal import spectrogram
 import os
 import fnmatch as fn
 
-<<<<<<< HEAD
 BEE_TRAIN_DIR = '/datasets/project1/data/bee_images/BEE2Set/bee_train'
 NO_BEE_TRAIN_DIR = '/datasets/project1/data/bee_images/BEE2Set/no_bee_train'
 BUZZ_TRAIN_DIR = '/datasets/project1/data/bee_sounds/BUZZ2Set/train/bee_train'
@@ -20,15 +19,7 @@ NO_BEE_TEST_DIR = '/datasets/project1/data/bee_images/BEE2Set/no_bee_test'
 BUZZ_TEST_DIR = '/datasets/project1/data/bee_sounds/BUZZ2Set/test/bee_test'
 CRICKET_TEST_DIR = '/datasets/project1/data/bee_sounds/BUZZ2Set/test/cricket_test'
 NOISE_TEST_DIR = '/datasets/project1/data/bee_sounds/BUZZ2Set/test/noise_test'
-=======
-BEE_TRAIN_DIR = 'bee_images/BEE2Set/bee_train'
-NO_BEE_TRAIN_DIR = 'bee_images/BEE2Set/no_bee_train'
-BUZZ_TRAIN_DIR = 'bee_sounds/BUZZ2Set/train/bee_train'
-CRICKET_TRAIN_DIR = 'bee_sounds/BUZZ2Set/train/cricket_train'
-NOISE_TRAIN_DIR = 'bee_sounds/BUZZ2Set/train/noise_train'
 
-
->>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
 def read_and_scale_CNN_image(image_path):
     img = (cv2.imread(image_path)/float(255))
     return img
@@ -59,12 +50,7 @@ def collect_ANN_training_image_set(set_dir):
                    files.append(read_and_scale_ANN_image(set_dir + '/' + directory + '/' + file))
    return files
 
-
-<<<<<<< HEAD
 def read_and_scale_ann_audio(image_path):
-=======
-def read_and_scale_audio(image_path):
->>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
     samplerate, audio = wavfile.read(image_path)
     if audio.size < 88245:
         new_size = 88244 - audio.size
@@ -93,7 +79,6 @@ def read_and_scale_audio(image_path):
     spec = (spec-spec.min())/(spec.max()-spec.min()) - 0.5
     return spec.reshape(16384)
 
-<<<<<<< HEAD
 def read_and_scale_cnn_audio(image_path):
     samplerate, audio = wavfile.read(image_path)
     if audio.size < 88245:
@@ -135,13 +120,6 @@ def collect_audio_cnn_training_data(set_dir):
     for root, directories, filenames in os.walk(set_dir):
        for file in filenames:
             files.append(read_and_scale_cnn_audio(set_dir + '/' + file))
-=======
-def collect_audio_training_data(set_dir):
-    files = []
-    for root, directories, filenames in os.walk(set_dir):
-       for file in filenames:
-            files.append(read_and_scale_audio(set_dir + '/' + file))
->>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
     return np.array(files)
 
 def train_image_ann():
@@ -149,7 +127,6 @@ def train_image_ann():
     no_bees = collect_ANN_training_image_set(NO_BEE_TRAIN_DIR)
     bee_y = [[1,0] for x in range(len(bees))]
     no_bee_y = [[0,1] for x in range(len(no_bees))]
-<<<<<<< HEAD
     print len(bees)
     print len(no_bees)
     X = np.append(bees, no_bees,axis=0)
@@ -158,13 +135,6 @@ def train_image_ann():
     reset_default_graph()
     model = build_image_ann_model()
     model.fit(X, Y, 500, validation_set=0.25, batch_size=100, shuffle=True, show_metric=True)
-=======
-    X = np.concatenate([bees[:5000], no_bees[:5000]])
-    Y = np.concatenate([bee_y[:5000], no_bee_y[:5000]])
-    reset_default_graph()
-    model = build_image_ann_model([1024,1024,2048,64], 0.0001)
-    model.fit(X, Y, 500, validation_set=0.25, batch_size=1000, shuffle=True, show_metric=True)
->>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
     pred = model.predict(bees)
     pred2 = model.predict(no_bees)
     model.save('nets/image_ann.tf')
@@ -174,7 +144,6 @@ def train_image_cnn():
     no_bees = collect_CNN_training_image_set(NO_BEE_TRAIN_DIR)
     bee_y = [[1,0] for x in range(len(bees))]
     no_bee_y = [[0,1] for x in range(len(no_bees))]
-<<<<<<< HEAD
     print len(bees)
     print len(no_bees)
     X = np.append(bees, no_bees,axis=0)
@@ -190,19 +159,6 @@ def train_audio_ann():
     buzz_d = np.array(collect_audio_ann_training_data(BUZZ_TRAIN_DIR))
     chirp_d = np.array(collect_audio_ann_training_data(CRICKET_TRAIN_DIR))
     noise_d = np.array(collect_audio_ann_training_data(NOISE_TRAIN_DIR))
-=======
-    X = np.concatenate([bees[:5000], no_bees[:5000]])
-    Y = np.concatenate([bee_y[:5000], no_bee_y[:5000]])
-    reset_default_graph()
-    model = build_image_cnn_model()
-    model.fit(X, Y, 10, validation_set=0.25, batch_size=100, shuffle=True,show_metric=True)
-    model.save('nets/image_cnn.tf')
-
-def train_audio_ann():
-    buzz_d = np.array(collect_audio_training_data(BUZZ_TRAIN_DIR))
-    chirp_d = np.array(collect_audio_training_data(CRICKET_TRAIN_DIR))
-    noise_d = np.array(collect_audio_training_data(NOISE_TRAIN_DIR))
->>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
     buzz_y = [[1,0,0] for x in range(len(buzz_d))]
     chirp_y = [[0,1,0] for x in range(len(chirp_d))]
     noise_y = [[0,0,1] for x in range(len(noise_d))]
@@ -211,7 +167,6 @@ def train_audio_ann():
     Y = np.append(np.append(buzz_y, chirp_y, axis=0),noise_y, axis=0)
     reset_default_graph()
     model = build_audio_ann_model()
-<<<<<<< HEAD
     model.fit(X, Y, 30, validation_set=0.25, batch_size=100, shuffle=True, show_metric=True)
     model.save('nets/audio_ann.tf')
 
@@ -238,34 +193,6 @@ def build_image_ann_model():
         net = tf.dropout(net, 0.6)
     net = tf.fully_connected(net, 2, activation='softmax', weights_init='xavier')
     net = tf.regression(net, optimizer='adam', learning_rate=0.0001, loss='categorical_crossentropy')
-=======
-    model.fit(X, Y, 10, validation_set=0.25, batch_size=100, shuffle=True, show_metric=True)
-    #model.save('nets/audio_ann.tf')
-
-def train_convnet_cnn():
-    buzz_d = collect_audio_training_data(BUZZ_TRAIN_DIR)
-    chirp_d = collect_audio_training_data(CRICKET_TRAIN_DIR)
-    noise_d = collect_audio_training_data(NOISE_TRAIN_DIR)
-    buzz_y = [[1,0,0] for x in range(len(buzz_d))]
-    chirp_y = [[0,1,0] for x in range(len(chirp_d))]
-    noise_y = [[0,0,1] for x in range(len(noise_d))]
-    X = np.concatenate([buzz_d[:100], chirp_d[:100], noise_d[:100]])
-    Y = np.concatenate([buzz_y[:100], chirp_y[:100],noise_y[:100]])
-    reset_default_graph()
-    model = build_audio_cnn_model()
-    model.fit(X, Y, 20, validation_set=0.10, batch_size=10, shuffle=True)
-    #model.save('nets/audio_cnn.tf')
-
-#Builds a 2048x512x32x2 neural net model and trains it with a learning rate of 0.01
-def build_image_ann_model(layers, lr):
-    # Input is 32 X 32, black and white images   
-    input_layer = tf.input_data(shape=[None, 1024])
-    for l in layers:
-        net = tf.fully_connected(input_layer, l, activation='tanh', regularizer='L2', weights_init='xavier')
-        net = tf.dropout(net, 0.6)
-    net = tf.fully_connected(net, 2, activation='softmax', weights_init='xavier')
-    net = tf.regression(net, optimizer='adam', learning_rate=lr, loss='categorical_crossentropy')
->>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
     model = tf.DNN(net)
     return model
 
@@ -273,10 +200,7 @@ def load_image_ann():
     reset_default_graph()
     model = build_image_ann_model()
     model.load('nets/image_ann.tf')
-<<<<<<< HEAD
     return model
-=======
->>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
 
 #Builds a 64x32x16 convolutional neural net model and trains it with a learning rate of 0.01
 def build_image_cnn_model():
@@ -299,10 +223,7 @@ def load_image_cnn():
     reset_default_graph()
     model = build_image_cnn_model()
     model.load('nets/image_cnn.tf')
-<<<<<<< HEAD
     return model
-=======
->>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
 
 def build_audio_ann_model():
     net = tf.input_data(shape=[None, 16384], name='Input')
@@ -311,14 +232,13 @@ def build_audio_ann_model():
 
     net = tf.fully_connected(net, 3, activation='softmax')
     net = tf.regression(net, learning_rate=0.001)
-    model = tf.DNN(net) 
+    model = tf.DNN(net)
     return model
 
 def load_audio_ann():
     reset_default_graph()
     model = build_audio_ann_model()
     model.load('nets/audio_ann.tf')
-<<<<<<< HEAD
     return model
 
 def build_audio_cnn_model():
@@ -331,18 +251,6 @@ def build_audio_cnn_model():
     net = tf.fully_connected(net, 12, activation='relu')
     net = tf.fully_connected(net, 3, activation='softmax')
     net = tf.regression(net, learning_rate=0.001)
-=======
-
-def build_audio_cnn_model():
-    net = tf.input_data(shape=[None, 32,32,3], name='Input')
-    for l in [32, 32, 10]:
-        covn = tf.conv_2d(input, nb_filter=l, filter_size=5, activation='tanh')
-        max_pool = tf.max_pool_2d(cov1, 2)
-        lrn = tf.local_response_normalization(max_pool)
-
-    net = tf.fully_connected(net, 3, activation='softmax')
-    net = tf.regression(net, learning_rate=0.01)
->>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
     model = tf.DNN(net)
     return model
 
@@ -350,34 +258,42 @@ def load_audio_cnn():
     reset_default_graph()
     model = build_audio_cnn_model()
     model.load('nets/audio_cnn.tf')
-<<<<<<< HEAD
     return model
 
 def test_model(model, x, y):
     results = []
-    prediction = model.predict(x)
+    prediction = np.array( model.predict(x))
+    prediction = prediction.round(decimals=0).astype(int)
+    print prediction
+    print y
     for i in range(len(prediction)):
-        results.append(np.argmax(prediction[i]) ==np.argmax(y[i]))
-    return sum((np.array(results) == True))/len(results)
+        if (prediction[i] == y[i]).all():
+            results.append(True)
+       # print 'p',prediction[i]
+       # print 't',y[i]
+       # results.append((prediction[i] == y[i]).all()
+    res = float(len(results))/float(len(prediction))
+    print res
+    return res
 
-from time import time
-
-s = time()
-train_image_ann()
-f = time()
-ann_t = f - s
-s = time()
-train_image_cnn()
-f = time()
-cnn_t = f - s
-s = time()
-train_audio_ann()
-f = time()
-audio_a_t = f - s
-s = time()
-train_audio_cnn()
-f = time()
-audio_c_t = f - s
+#from time import time
+#
+#s = time()
+#train_image_ann()
+#f = time()
+#ann_t = f - s
+#s = time()
+#train_image_cnn()
+#f = time()
+#cnn_t = f - s
+#s = time()
+#train_audio_ann()
+#f = time()
+#audio_a_t = f - s
+#s = time()
+#train_audio_cnn()
+#f = time()
+#audio_c_t = f - s
 
 reset_default_graph()
 image_ann = load_image_ann()
@@ -400,8 +316,8 @@ Y = np.append(bee_y, no_bee_y,axis=0)
 print X.shape
 ann_acc = test_model(image_ann, X, Y)
 
-bees = collect_CNN_training_image_set(BEE_TRAIN_DIR)
-no_bees = collect_CNN_training_image_set(NO_BEE_TRAIN_DIR)
+bees = collect_CNN_training_image_set(BEE_TEST_DIR)
+no_bees = collect_CNN_training_image_set(NO_BEE_TEST_DIR)
 bee_y = [[1,0] for x in range(len(bees))]
 no_bee_y = [[0,1] for x in range(len(no_bees))]
 X = np.append(bees, no_bees,axis=0)
@@ -413,6 +329,9 @@ cnn_acc = test_model(image_cnn, X, Y)
 buzz_d = collect_audio_ann_training_data(BUZZ_TEST_DIR)
 chirp_d = collect_audio_ann_training_data(CRICKET_TEST_DIR)
 noise_d = collect_audio_ann_training_data(NOISE_TEST_DIR)
+print len(buzz_d)
+print len(chirp_d)
+print len(noise_d)
 buzz_y = [[1,0,0] for x in range(len(buzz_d))]
 chirp_y = [[0,1,0] for x in range(len(chirp_d))]
 noise_y = [[0,0,1] for x in range(len(noise_d))]
@@ -423,9 +342,9 @@ Y = np.append(np.append(buzz_y, chirp_y, axis=0),noise_y, axis=0)
 print X.shape
 audio_ann_acc = test_model(audio_ann, X, Y)
 
-buzz_d = collect_audio_cnn_training_data(BUZZ_TRAIN_DIR)
-chirp_d = collect_audio_cnn_training_data(CRICKET_TRAIN_DIR)
-noise_d = collect_audio_cnn_training_data(NOISE_TRAIN_DIR)
+buzz_d = collect_audio_cnn_training_data(BUZZ_TEST_DIR)
+chirp_d = collect_audio_cnn_training_data(CRICKET_TEST_DIR)
+noise_d = collect_audio_cnn_training_data(NOISE_TEST_DIR)
 buzz_y = [[1,0,0] for x in range(len(buzz_d))]
 chirp_y = [[0,1,0] for x in range(len(chirp_d))]
 noise_y = [[0,0,1] for x in range(len(noise_d))]
@@ -436,18 +355,21 @@ Y = np.append(np.append(buzz_y, chirp_y, axis=0),noise_y, axis=0)
 print X.shape
 audio_cnn_acc = test_model(audio_cnn, X, Y)
 
-import json
+print ann_acc
+print cnn_acc
+print audio_ann_acc
+print audio_cnn_acc
 
-f = open('stats.txt','w+')
-f.write('Image ANN training time: ')
-f.write(str(ann_t))
-f.write('\nImage CNN Training time: ')
-f.write(str(cnn_t))
-f.write('\nAudio ANN Training time: ')
-f.write(str(audio_a_t))
-f.write('\nAudio CNN training time: ')
-f.write(str(audio_c_t))
-f.write('\n')
+f = open('stats.txt','a+')
+#f.write('Image ANN training time: ')
+#f.write(str(ann_t))
+#f.write('\nImage CNN Training time: ')
+#f.write(str(cnn_t))
+#f.write('\nAudio ANN Training time: ')
+#f.write(str(audio_a_t))
+#f.write('\nAudio CNN training time: ')
+#f.write(str(audio_c_t))
+#f.write('\n')
 f.write(str(ann_acc))
 f.write('\n')
 f.write(str(cnn_acc))
@@ -457,10 +379,3 @@ f.write('\n')
 f.write(str(audio_cnn_acc))
 f.write('\n')
 f.close()
-=======
-
-#train_image_ann()
-#train_image_cnn()
-train_audio_ann()
-#train_audio_cnn()
->>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
