@@ -1,0 +1,8 @@
+Image ANN training time: 1779.64056897
+Image CNN Training time: 238.770776987
+Audio ANN Training time: 157.575460911
+Audio CNN training time: 223.464622974
+0
+0
+0
+0

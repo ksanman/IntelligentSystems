@@ -1,0 +1,2 @@
+model_checkpoint_path: "/IntelligentSystems/Project 1/nets/audio_cnn.tf"
+all_model_checkpoint_paths: "/IntelligentSystems/Project 1/nets/audio_cnn.tf"
