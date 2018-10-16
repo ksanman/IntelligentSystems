@@ -37,8 +37,12 @@ def load_mnist_convnet_1(path):
     fc1 = tflearn.fully_connected(max_pool2, 100, activation='sigmoid')
     fc2 = tflearn.fully_connected(fc1, 10, activation='softmax')
     model = tflearn.DNN(fc2)
+<<<<<<< HEAD
     model.load(path,weights_only=True)
     return model
+=======
+    return model.load(net_path_1)
+>>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
 
 def load_mnist_convnet_2(path):
     ## your code here
@@ -51,8 +55,12 @@ def load_mnist_convnet_2(path):
     fc1 = tflearn.fully_connected(max_pool2, 100, activation='sigmoid')
     fc2 = tflearn.fully_connected(fc1, 10, activation='softmax')
     model =  tflearn.DNN(fc2)
+<<<<<<< HEAD
     model.load(path,weights_only=True)
     return model
+=======
+    return model.load(net_path_2)
+>>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
 
 def load_mnist_convnet_3(path):
     ## your code here
@@ -65,8 +73,12 @@ def load_mnist_convnet_3(path):
     fc1 = tflearn.fully_connected(max_pool2, 100, activation='relu')
     fc2 = tflearn.fully_connected(fc1, 10, activation='softmax')
     model =  tflearn.DNN(fc2)
+<<<<<<< HEAD
     model.load(path,weights_only=True)
     return model
+=======
+    return model.load(net_path_3)
+>>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
 
 def load_mnist_convnet_4(path):
     ## your code here
@@ -82,8 +94,12 @@ def load_mnist_convnet_4(path):
     fc1 = tflearn.fully_connected(max_pool3, 100, activation='sigmoid')
     fc2 = tflearn.fully_connected(fc1, 10, activation='softmax')
     model = tflearn.DNN(fc2)
+<<<<<<< HEAD
     model.load(path,weights_only=True)
     return model
+=======
+    return model.load(net_path_4)
+>>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
 
 def load_mnist_convnet_5(path):
     ## your code here
@@ -99,8 +115,12 @@ def load_mnist_convnet_5(path):
     fc1 = tflearn.fully_connected(max_pool3, 30, activation='sigmoid')
     fc2 = tflearn.fully_connected(fc1, 10, activation='softmax')
     model =  tflearn.DNN(fc2)
+<<<<<<< HEAD
     model.load(path,weights_only=True)
     return model
+=======
+    return model.load(net_path_5)
+>>>>>>> 84fc937480dcf39407d9daf7e3d1b3e7748e187a
 
 def load(file_name):
     with open(file_name, 'rb') as fp:
