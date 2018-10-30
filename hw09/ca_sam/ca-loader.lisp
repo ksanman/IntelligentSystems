@@ -12,7 +12,8 @@ Bugs to vladimir dot kulyukin at aggiemail dot usu dot edu
 (in-package :user)
 
 ;;; change this to the directory where the ca files are.
-(defparameter *ca-dir* "/home/vladimir/programming/lisp/ca_sam/")
+;;;(defparameter *ca-dir* "/home/vladimir/programming/lisp/ca_sam/")
+(defparameter *ca-dir* "/IntelligentSystems/hw09/ca_sam/")
 
 (defparameter *files* '("ca-utilities" "cd" "ca" "ca-functions" "ca-lexicon"))
 
