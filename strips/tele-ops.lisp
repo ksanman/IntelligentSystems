@@ -81,15 +81,24 @@
     :action (polish ?blank ?polisher)
     :goal (surface ?blank smooth)
     :precond (
-	      ;;; your code
-	      )
+               (set ?polisher ?bit)
+               (mounted ?blank ?polisher)
+             )
     :filter (
-	     ;;; your code
-	     )
+             (inst ?blank lens)
+             ;(shape ?blank flat) 
+             (surface ?blank rough)
+             (inst ?polisher polisher)
+             (inst ?bit bit)
+             (surface ?bit smooth)
+            )
     :add (
 	  ;;; your code
 	  )
-    :del ())
+    :del (
+          (surface ?blank rough) 
+         )
+)
 
 ;;; SETUP sets a grinder or polisher up by installing a bit.
 
@@ -110,18 +119,21 @@
     :action (setup ?bit ?machine)
     :goal (set ?machine ?bit)
     :precond (
-	      ;;; your code
-	      )
-    :filter (
-	     ;;; your code
+              (poss robot ?bit)
+              (unset ?machine)
 	     )
+    :filter (
+	     (inst ?machine machine)
+             (inst ?bit bit)
+	    )
     :add (
-	  ;;; your code
-	  )
+	  (free (hand-of robot))
+	 )
     :del (
-	  ;;; your code
-	  )
-    )
+	  (unset ?machine)
+          (poss robot ?bit)
+	 )
+)
 
 ;;; Break-down removes a bit from a machine.
 
